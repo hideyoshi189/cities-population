@@ -1,0 +1,12 @@
+.header {
+  background-color: #f8f9fa;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+h1 {
+  color: #343a40;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+}
