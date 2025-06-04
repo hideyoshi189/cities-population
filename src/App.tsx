@@ -1,34 +1,48 @@
+// src/App.jsx (親コンポーネント)
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import PrefectureCheckboxes from './prefectureCheckbnoxes'
+import PopulationChart from './chart'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // 親コンポーネントで選択された都道府県のコードを管理するstate
+  const [selectedPrefectureCodes, setSelectedPrefectureCodes] = useState([])
+
+  // PrefectureCheckboxes から選択情報を受け取るコールバック関数
+  const handlePrefectureSelection = (newSelectedCodes) => {
+    setSelectedPrefectureCodes(newSelectedCodes)
+    console.log('App.jsx: Selected Prefectures updated:', newSelectedCodes)
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div style={{ padding: '20px' }}>
+      <h1>都道府県別人口推移</h1>
+      <div style={{ display: 'flex', gap: '20px' }}>
+        <div
+          style={{
+            flex: 1,
+            border: '1px solid #ccc',
+            padding: '15px',
+            borderRadius: '8px',
+          }}
+        >
+          {/* PrefectureCheckboxes に選択時のコールバック関数を渡す */}
+          <PrefectureCheckboxes
+            onSelectPrefectures={handlePrefectureSelection}
+          />
+        </div>
+        <div
+          style={{
+            flex: 2,
+            border: '1px solid #ccc',
+            padding: '15px',
+            borderRadius: '8px',
+          }}
+        >
+          {/* PopulationChart に選択された都道府県コードを渡す */}
+          <PopulationChart selectedPrefectureCodes={selectedPrefectureCodes} />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
