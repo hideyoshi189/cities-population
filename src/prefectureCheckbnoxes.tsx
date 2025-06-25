@@ -1,11 +1,14 @@
 // src/PrefectureCheckboxes.jsx
 import { useState, useEffect } from 'react'
+import { Prefecture, PrefectureCheckboxesProps } from './types'
 
 const API_KEY = '8FzX5qLmN3wRtKjH7vCyP9bGdEaU4sYpT6cMfZnJ'
 const API_URL_PREFECTURES =
   'https://yumemi-frontend-engineer-codecheck-api.vercel.app/api/v1/prefectures' // 都道府県APIエンドポイント
 
-function PrefectureCheckboxes({ onSelectPrefectures }) {
+function PrefectureCheckboxes({
+  onSelectPrefectures,
+}: PrefectureCheckboxesProps) {
   // ★ Propsとしてコールバック関数を受け取る
   const [prefectures, setPrefectures] = useState([])
   const [selectedPrefectures, setSelectedPrefectures] = useState([])
