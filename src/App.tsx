@@ -1,45 +1,35 @@
-// src/App.jsx (親コンポーネント)
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PrefectureCheckboxes from './prefectureCheckbnoxes'
 import PopulationChart from './chart'
+import type { Prefecture } from './types'
+import './App.css'
 
 function App() {
-  // 親コンポーネントで選択された都道府県のコードを管理するstate
-  const [selectedPrefectureCodes, setSelectedPrefectureCodes] = useState([])
+  const [prefectures, setPrefectures] = useState<Prefecture[]>([])
+  const [selectedPrefectureCodes, setSelectedPrefectureCodes] = useState<number[]>([])
 
-  // PrefectureCheckboxes から選択情報を受け取るコールバック関数
-  const handlePrefectureSelection = (newSelectedCodes) => {
-    setSelectedPrefectureCodes(newSelectedCodes)
-    console.log('App.jsx: Selected Prefectures updated:', newSelectedCodes)
-  }
+  useEffect(() => {
+    fetch('https://yumemi-frontend-engineer-codecheck-api.vercel.app/api/v1/prefectures', {
+      headers: { 'X-API-KEY': '8FzX5qLmN3wRtKjH7vCyP9bGdEaU4sYpT6cMfZnJ' }
+    })
+      .then(res => res.json())
+      .then(data => setPrefectures(data.result))
+  }, [])
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>都道府県別人口推移</h1>
-      <div style={{ display: 'flex', gap: '20px' }}>
-        <div
-          style={{
-            flex: 1,
-            border: '1px solid #ccc',
-            padding: '15px',
-            borderRadius: '8px',
-          }}
-        >
-          {/* PrefectureCheckboxes に選択時のコールバック関数を渡す */}
+    <div className="app-container">
+      <h1 className="app-title">都道府県別人口推移</h1>
+      <div className="app-content">
+        <div className="checkboxes-container">
           <PrefectureCheckboxes
-            onSelectPrefectures={handlePrefectureSelection}
+            onSelectPrefectures={setSelectedPrefectureCodes}
           />
         </div>
-        <div
-          style={{
-            flex: 2,
-            border: '1px solid #ccc',
-            padding: '15px',
-            borderRadius: '8px',
-          }}
-        >
-          {/* PopulationChart に選択された都道府県コードを渡す */}
-          <PopulationChart selectedPrefectureCodes={selectedPrefectureCodes} />
+        <div className="chart-container">
+          <PopulationChart
+            selectedPrefectureCodes={selectedPrefectureCodes}
+            prefectures={prefectures}
+          />
         </div>
       </div>
     </div>

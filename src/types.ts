@@ -1,20 +1,23 @@
 export interface Prefecture {
   prefCode: number,
-  preName: string
+  prefName: string
 }
 
 export interface PopulationChartProps {
-  SelectionedPrefectureCodes: number[]
+  selectedPrefectureCodes: number[],
+  prefectures: Prefecture[]
 }
 
 export interface PrefectureCheckboxesProps {
   onSelectPrefectures: (selectedCodes: number[]) => void
-
 }
 
 export interface PopulationData {
   year: number,
-  [prefectureCode: string]: number // 都道府県コードをキーとする人口データ
+  [prefectureCode: string]: number 
 }
 
-export interface 
+export interface ChartDataPoint {
+  year: number,
+  [key: string]: number | string 
+}
