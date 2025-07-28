@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     fetch('https://yumemi-frontend-engineer-codecheck-api.vercel.app/api/v1/prefectures', {
-      headers: { 'X-API-KEY': '8FzX5qLmN3wRtKjH7vCyP9bGdEaU4sYpT6cMfZnJ' }
+      headers: { 'X-API-KEY': import.meta.env.VITE_API_KEY }
     })
       .then(res => res.json())
       .then(data => setPrefectures(data.result))
