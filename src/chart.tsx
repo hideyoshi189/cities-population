@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import type { PopulationChartProps, ChartDataPoint } from './types'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
-const API_KEY = '8FzX5qLmN3wRtKjH7vCyP9bGdEaU4sYpT6cMfZnJ'
 const API_URL_POPULATION =
   'https://yumemi-frontend-engineer-codecheck-api.vercel.app/api/v1/population/composition/perYear' 
 
@@ -38,7 +37,7 @@ function PopulationChart({ selectedPrefectureCodes, prefectures }: PopulationCha
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
-                'X-API-KEY': API_KEY, 
+                'X-API-KEY': import.meta.env.VITE_API_KEY, 
               },
             })
 

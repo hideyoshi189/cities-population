@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import type { Prefecture, PrefectureCheckboxesProps } from './types'
 import './prefectureCheckbnoxes.css'
 
-const API_KEY = '8FzX5qLmN3wRtKjH7vCyP9bGdEaU4sYpT6cMfZnJ'
 const API_URL_PREFECTURES =
   'https://yumemi-frontend-engineer-codecheck-api.vercel.app/api/v1/prefectures' 
 
@@ -21,7 +20,7 @@ function PrefectureCheckboxes({
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'X-API-KEY': API_KEY,
+            'X-API-KEY': import.meta.env.VITE_API_KEY,
           },
         })
         if (!response.ok) {
